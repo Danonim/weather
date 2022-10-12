@@ -1,11 +1,8 @@
 import requests
 import datetime
-from pprint import pprint
 from config import open_weather_token
 
-
-def get_weather(location, open_weather_token):
-    emoji = {
+emoji = {
         "Clear": "Ясно \U00002600",
         "Clouds": "Хмарно \U00002601",
         "Rain": "Дощ \U00002614",
@@ -14,13 +11,12 @@ def get_weather(location, open_weather_token):
         "Snow": "Сніг \U0001F328",
         "Mist": "Туман \U0001F32B"
     }
-
+def get_weather(location, open_weather_token):
     try:
         r = requests.get(
             f"https://api.openweathermap.org/data/2.5/weather?q={location}&appid={open_weather_token}&units=metric"
         )
         data = r.json()
-        # pprint(data)
 
         location = data['name']
         temperature = data['main']['temp']
@@ -39,7 +35,7 @@ def get_weather(location, open_weather_token):
               f"Погода в населеному пункті {location}: {wd}\n"
               f"Температура повітря: {temperature}°C\n"
               f"Вологість повітря: {humidity}%\n"
-              f"Атмосферний тиск: {pressure} мм рт. ст.\n"
+              f"Атмосферний тиск: {pressure} гПа\n"
               f"Швидкість вітру: {wind} м/с\n"
               f"Схід сонця: {sunrise}\n"
               f"Захід сонця: {sunset}\n"
